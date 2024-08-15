@@ -1,23 +1,47 @@
 .feed-swiper {
+	.swiper-wrapper {
+		align-items: stretch !important;
+
+		& > * {
+			height: 100% !important;
+			min-height: 100% !important;
+			flex-grow: 1 !important;
+			flex: 1 !important;
+		}
+	}
+
 	position: relative;
-	$bg: linear-gradient(
-		90deg,
-		hsla(0, 0%, 0%, 1) 0%,
-		hsla(236, 100%, 72%, 1) 100%
-	);
 	&:after {
+		position: absolute;
 		content: " ";
-		background: linear-gradient;
+		background: linear-gradient(
+			-90deg,
+			rgba(255, 255, 255, 0) 0%,
+			#0f172a 100%
+		);
 		left: 0;
-		width: 24px;
+		width: 48px;
 		top: 0;
 		bottom: 0;
+		z-index: 2;
 	}
 	&:before {
+		position: absolute;
 		content: " ";
+		background: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0) 0%,
+			#0f172a 100%
+		);
 		right: 0;
-		width: 24px;
+		width: 48px;
 		top: 0;
 		bottom: 0;
+		z-index: 2;
+	}
+
+	.swiper-button-next {
+		&:after {
+		}
 	}
 }

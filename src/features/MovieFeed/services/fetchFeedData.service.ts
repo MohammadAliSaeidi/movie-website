@@ -1,20 +1,25 @@
-import { IFeedData } from "../../../interfaces/IFeedData.interface";
+import { IMovieInfo } from "../../../interfaces/IMovieInfo.interface";
 import { axiosInstance } from "../../../lib/axios.config";
 
-export async function fetchAllSubscriptionsData(
+export async function fetchFeedData(
 	abortSignal: AbortSignal
-): Promise<IFeedData> {
+): Promise<IMovieInfo[]> {
 	const apiUrl = import.meta.env.VITE_SOME_KEY_API_FETCH_FEED_DATA;
 	if (apiUrl) {
 		try {
-			const response = await axiosInstance.post(apiUrl, null, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-				signal: abortSignal,
-			});
+			const response = await axiosInstance.get(
+				"http://localhost:3000/movies",
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					signal: abortSignal,
+				}
+			);
 
-			return response.data;
+			const parsedToJson = await JSON.parse(response.data);
+
+			return parsedToJson satisfies IMovieInfo[];
 		} catch (error) {
 			console.log(error);
 			throw error;

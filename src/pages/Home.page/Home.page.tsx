@@ -1,42 +1,35 @@
+import { useEffect } from "react";
 import FeedSwiper from "../../features/MovieFeed/components/FeedSwiper";
 import MovieCard from "../../features/MovieFeed/components/MovieCard";
-import { IMovieInfo } from "../../interfaces/IMovieInfo.interface";
+import { fetchFeedData } from "../../features/MovieFeed/services/fetchFeedData.service";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Home() {
-	const movieCards = Array.from({ length: 14 }).map((_, index) => (
-		<MovieCard
-			key={index}
-			actors="ali saeidi#fateme saeidi#sina heydari#meysam nazari"
-			coverImgUrl="https://m.media-amazon.com/images/M/MV5BMjExMjkwNTQ0Nl5BMl5BanBnXkFtZTcwNTY0OTk1Mw@@._V1_.jpg"
-			description="a great movie with great actors. great story. great action. great idea. great lessons. lorem ipsum dolor sit amet con laore magna al"
-			director="Christopher Nolan"
-			genre="Science fiction"
-			rating={8.8}
-			title="Inception"
-			year="2010"
-		/>
+	const moviesMutation = useMutation({
+		mutationKey: ["movies"],
+		mutationFn: () => {
+			const abortController = new AbortController();
+			return fetchFeedData(abortController.signal);
+		},
+	});
+
+	useEffect(() => {
+		moviesMutation.mutate();
+	}, []);
+
+	const movieCards = moviesMutation.data?.map((data) => (
+		<MovieCard key={data.id} {...data} />
 	));
 
-	const mockMoviesInfo: IMovieInfo[] = Array.from({ length: 12 }).map(() => ({
-		actors: "ali saeidi#fateme saeidi#sina heydari#meysam nazari",
-		coverImgUrl:
-			"https://m.media-amazon.com/images/M/MV5BMjExMjkwNTQ0Nl5BMl5BanBnXkFtZTcwNTY0OTk1Mw@@._V1_.jpg",
-		description:
-			"a great movie with great actors. great story. great action. great idea. great lessons. lorem ipsum dolor sit amet con laore magna al",
-		director: "Christopher Nolan",
-		genre: "Science fiction",
-		rating: 8.8,
-		title: "Inception",
-		year: "2010",
-	}));
-
 	return (
-		<div>
-			<section className="grid w-fit mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-8 gap-y-16">
+		<div className="[&>section]:mt-10">
+			<section className="grid w-fit h- mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-8 gap-y-16">
 				{movieCards}
 			</section>
-			<h2>swiper</h2>
-			<FeedSwiper movies={mockMoviesInfo} />
+			<section>
+				<h2>swiper</h2>
+				<FeedSwiper movies={moviesMutation.data} />
+			</section>
 		</div>
 	);
 }
