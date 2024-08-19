@@ -7,15 +7,12 @@ export async function fetchFeedData(
 	const apiUrl = import.meta.env.VITE_SOME_KEY_API_FETCH_FEED_DATA;
 	if (apiUrl) {
 		try {
-			const response = await axiosInstance.get(
-				"http://localhost:3000/movies",
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-					signal: abortSignal,
-				}
-			);
+			const response = await axiosInstance.get(apiUrl, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+				signal: abortSignal,
+			});
 
 			const parsedToJson = await JSON.parse(response.data);
 

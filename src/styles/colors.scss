@@ -1,5 +1,45 @@
 :root {
-	--color-separator: #eee;
+	--color-primary: #336aff;
+	--color-primary--hover: #245efc;
 
-	--color-material-thin: #fff;
+	--color-label-primary: rgb(64, 59, 91);
+	--color-label-secondary: rgb(64, 59, 91, 0.6);
+	--color-label-tertiary: rgb(64, 59, 91, 0.3);
+	--color-label-quaternary: rgb(64, 59, 91, 0.18);
+	--color-label-light: #ffffff;
+	--color-label-dark: rgb(64, 59, 91);
+
+	--color-bg-primary: #ffffff;
+
+	--color-material-primary: rgba(237, 237, 237, 0.8);
+	--color-material-primary--hover: rgba(219, 223, 226, 0.9);
+	--color-material-red: rgba(255, 0, 0, 0.2);
+	--color-material-green: rgba(51, 255, 0, 0.2);
+
+	--color-border-primary: rgba(0, 0, 0, 0.05);
+	--color-border-red: rgba(255, 0, 0, 0.2);
+	--color-border-green: rgba(51, 255, 0, 0.2);
+
+	--color-separator: #eeeeee;
+	--color-material-thin: #ffffff;
+
+	&.dark {
+		--color-primary: #2b63fc;
+		--color-primary--hover: rgb(32, 87, 240);
+
+		--color-label-primary: #ffffff;
+		--color-label-secondary: rgb(235, 235, 245, 0.6);
+		--color-label-tertiary: rgb(245, 245, 245, 0.3);
+		--color-label-quaternary: rgb(235, 235, 245, 0.18);
+
+		--color-bg-primary: #0f172a;
+
+		--color-material-primary: rgba(29, 38, 61, 0.8);
+		--color-material-primary--hover: rgba(50, 59, 82, 0.9);
+
+		--color-border-primary: rgba(248, 250, 252, 0.05);
+
+		--color-separator: rgba(238, 238, 238, 0.05);
+		--color-material-thin: #202020;
+	}
 }

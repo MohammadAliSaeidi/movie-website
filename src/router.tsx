@@ -1,18 +1,42 @@
 import Root from "./components/Root";
-import {
-	createBrowserRouter,
-	createRoutesFromElements,
-	Route,
-} from "react-router-dom";
-import Home from "./pages/Home.page/Home.page";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./components/MainLayout";
-
-export const router = createBrowserRouter(
-	createRoutesFromElements(
-		<Route path="/" element={<Root />}>
-			<Route path="" element={<MainLayout />}>
-				<Route path="" element={<Home />}></Route>
-			</Route>
-		</Route>
-	)
+import { lazy } from "react";
+const Home = lazy(() => import("./pages/Home.page"));
+// const Admin = lazy(() => import("./pages/Admin.page"));
+const Login = lazy(() => import("./pages/Login.page"));
+const AdminLayout = lazy(
+	() => import("./features/Admin/components/AdminLayout")
 );
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard.page"));
+const AdminMoviesManager = lazy(
+	() => import("./pages/AdminMoviesManager.page")
+);
+const AdminAddMovie = lazy(() => import("./pages/AdminAddMovie.page"));
+
+export const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <Root />,
+		children: [
+			{
+				path: "",
+				element: <MainLayout />,
+				children: [{ path: "", element: <Home /> }],
+			},
+			{
+				path: "login",
+				element: <Login />,
+			},
+			{
+				path: "admin",
+				element: <AdminLayout />,
+				children: [
+					{ path: "", element: <AdminDashboard /> },
+					{ path: "movies", element: <AdminMoviesManager /> },
+					{ path: "add-movie", element: <AdminAddMovie /> },
+				],
+			},
+		],
+	},
+]);

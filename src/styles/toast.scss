@@ -1,0 +1,14 @@
+.toast {
+	@extend .card;
+	color: var(--color-label-primary);
+}
+
+.toast-success {
+	border-color: var(--color-border-green) !important;
+	background-color: var(--color-material-green) !important;
+}
+
+.toast-error {
+	border-color: var(--color-border-red) !important;
+	background-color: var(--color-material-red) !important;
+}

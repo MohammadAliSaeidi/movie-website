@@ -1,15 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./styles/colors.scss";
+@import "./styles/toast.scss";
+
+:root {
+	--border-radius: 0.75rem;
+}
 
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-
 	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+
+	color: var(--color-label-primary);
+	background-color: var(--color-bg-primary);
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -26,20 +32,14 @@
 }
 
 .card {
-	border-radius: 0.75rem;
-	border: 1px solid rgba(248, 250, 252, 0.1);
-	background-color: rgba(248, 250, 252, 0.01);
-	&:hover {
-		background-color: rgba(248, 250, 252, 0.05);
-	}
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-border-primary);
+	background-color: var(--color-material-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-	.card {
-		border-color: rgba(248, 250, 252, 0.1);
-		background-color: rgba(248, 250, 252, 0.1);
-		&:hover {
-			background-color: rgba(248, 250, 252, 0.15);
-		}
+.card-with-hover {
+	@extend .card;
+	&:hover {
+		background-color: var(--color-material-primary--hover);
 	}
 }
